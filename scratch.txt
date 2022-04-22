@@ -1,0 +1,49 @@
+Routes to sing in
+- https://outlook.live.com/owa/
+- https://login.live.com/login.srf?wa=wsignin1.0&rpsnv=13&ct=1650620673&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3d32cc6120-3414-5bf1-f520-058a5e89506b&id=292841&aadredir=1&whr=outlook.hu&CBCXT=out&lw=1&fl=dob%2cflname%2cwld&cobrandid=90015
+- input email id="i0116"
+- button event "Tovább" id="idSIButton9"
+- input password id="i0118"
+- button event "Bejelentkezés" id="idSIButton9"
+- bejelentkezve marad oldal: https://login.live.com/ppsecure/post.srf?wa=wsignin1.0&rpsnv=13&ct=1650620704&rver=7.0.6737.0&wp=MBI_SSL&wreply=https%3a%2f%2foutlook.live.com%2fowa%2f%3fnlp%3d1%26RpsCsrfState%3d32cc6120-3414-5bf1-f520-058a5e89506b&id=292841&aadredir=1&whr=outlook.hu&CBCXT=out&lw=1&fl=dob%2cflname%2cwld&cobrandid=90015&contextid=6029F129C8EBBA6B&bk=1650620927&uaid=9890f38ef764478e9c66e988ca8feeba&pid=0
+- main page URL: https://outlook.live.com/mail/0/
+
+----------------------------------------------------
+
+General Login
+await page.goto('https://www.example.com/login');
+
+await page.type('#username', 'username');
+await page.type('#password', 'password');
+
+await page.click('#submit');
+
+await page.waitForNavigation()
+
+*******************************************************************************
+Another login
+
+const puppeteer = require('puppeteer');
+
+async function main() {
+  const browser = await puppeteer.launch({headless: false});
+  const page = await browser.newPage();
+  await page.setViewport({width: 1200, height: 720});
+  await page.goto('https://www.daum.net', { waitUntil: 'networkidle0' }); // wait until page load
+  await page.type('#id', CREDS.username);
+  await page.type('#loginPw', CREDS.password);
+  // click and wait for navigation
+  await Promise.all([
+    page.click('#loginSubmit'),
+    page.waitForNavigation({ waitUntil: 'networkidle0' }),
+  ]);
+}
+
+main();
+
+---------------------------------------------------
+
+
+
+Time tracking:
+Puppeteer: 04.22.: 11:00-12:00 
