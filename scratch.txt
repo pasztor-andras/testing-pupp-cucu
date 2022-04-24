@@ -10,40 +10,31 @@ Routes to sing in
 
 ----------------------------------------------------
 
-General Login
-await page.goto('https://www.example.com/login');
-
-await page.type('#username', 'username');
-await page.type('#password', 'password');
-
-await page.click('#submit');
-
-await page.waitForNavigation()
+Write an email:
+Új üzenet gomb --> type="button" class="ms-Button"
+Címzett input --> <input> class="ms-BasePicker-input pickerInput_cc9894a7"
+Tárgy input --> type="text" id="TextField332" class="ms-TextField-field field-241"
+Szöveg input --> <div> class="elementToProof"
+Küldés gomb --> type="button" class="ms-Button ms-Button--primary ms-Button--hasMenu root-250"
+class="ms-Button-label label-233" id="id__66"
 
 *******************************************************************************
-Another login
+Check send emails
+Elküldött elemek --> '[title="Elküldött elemek"]'
+Elküldött üzenetek lista --> class="s0OAmtxWyjwp1q8ElgO7"
 
-const puppeteer = require('puppeteer');
 
-async function main() {
-  const browser = await puppeteer.launch({headless: false});
-  const page = await browser.newPage();
-  await page.setViewport({width: 1200, height: 720});
-  await page.goto('https://www.daum.net', { waitUntil: 'networkidle0' }); // wait until page load
-  await page.type('#id', CREDS.username);
-  await page.type('#loginPw', CREDS.password);
-  // click and wait for navigation
-  await Promise.all([
-    page.click('#loginSubmit'),
-    page.waitForNavigation({ waitUntil: 'networkidle0' }),
-  ]);
-}
-
-main();
+*******************************************************************************
+Delete all send emails
+Mappa ürítése --> class="ms-Button-flexContainer flexContainer-158"
 
 ---------------------------------------------------
 
 
 
 Time tracking:
-Puppeteer: 04.22.: 11:00-12:00 
+Puppeteer: 04.22.: 11:00-18:00 Login
+Puppeteer: 04.23.: 13:00-14:00 New message
+Puppeteer: 04.23.: 15:00-16:00 Send message
+Puppeteer: 04.24.: 11:00-13:00 Delete message
+
