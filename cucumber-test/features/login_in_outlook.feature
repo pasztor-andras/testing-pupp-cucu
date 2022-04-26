@@ -1,10 +1,18 @@
-Feature: Login process in Outlook.
-    The user want to enter the Outlook
+Feature: handling emails with Outlook
 
+Scenario: send an email with Outlook
+    Given I am logged in at outlook.hu
+    When I start a new email with a subject and body
+    And I press the Send button
+    Then I see the email in the list of sent emails
 
-Scenario: Login to Outlook with valid credentials
-    Given I am online at outlook.hu = goto(https://outlook.live.com/owa/?nlp=1)
-    When I write my email address in the email field = type(andras.pasztor2022@outlook.hu)
-    And I provide a valid password for the same user = type(QaYwSx789)
-    And I click on the Login button
-    Then I am logged into the outlook inbox = assert(https://outlook.live.com/mail/0/)
+Scenario: open a sent email with Outlook
+    Given I am logged in at outlook.hu
+    When I click the list of sent emails
+    And click an email
+   Then I can see the body of the email
+
+Scenario: delete sent email in Outlook
+    Given I am online at outlook.hu
+    When I empty the list of sent emails
+    Then I can see that the folder is empty
