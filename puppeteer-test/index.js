@@ -4,10 +4,11 @@ const assert = require("assert");
 
 let browser;
 let page;
+const listOfSentEmails = 'div[title="Elküldött elemek"]';
 
 describe("setup", () => {
   before(async () => {
-    browser = await puppeteer.launch({ args: ["--window-size=1920,1080"], headless: false, slowMo: 100 });
+    browser = await puppeteer.launch({ args: ["--window-size=1920,1080"], headless: false, slowMo: 120 });
     page = await browser.newPage();
     
     await page.setViewport({
@@ -23,12 +24,12 @@ describe("setup", () => {
     it("writes an email and sends it", async () => {
       //Email input
       const emailInput = "#i0116";
-      await page.type(emailInput, process.env.USER_EMAIL);
+      await page.type(emailInput, "andras.pasztor2022@outlook.hu");
       await page.click('input[type="submit"]');
 
       //Password input
       await page.waitForSelector("#i0118");
-      await page.type("#i0118", process.env.USER_PASSWORD);
+      await page.type("#i0118", "QaYwSx789");
       await page.click('input[type="submit"]');
       await page.waitForSelector("#idSIButton9");
       await page.click("#idSIButton9");
@@ -40,7 +41,7 @@ describe("setup", () => {
 
       const addresseeInput = ".ms-SelectionZone";
       await page.waitForSelector(addresseeInput);
-      await page.type(addresseeInput, process.env.RECIPIENT_EMAIL);
+      await page.type(addresseeInput, "andras.pasztor1@gmail.com");
       await page.keyboard.press("Enter");
 
       const subjectInput = 'input[type="text"]';
@@ -52,26 +53,27 @@ describe("setup", () => {
       const sendButton = '[title="Küldés (Ctrl+Enter)"]';
       await page.click(sendButton);
 
-      const recipient = process.env.RECIPIENT_EMAIL;
+      const recipient = "andras.pasztor1@gmail.com";
       const expected = await page.$eval(addresseeInput, (val) => val.get);
 
       assert.equal(recipient, expected);
     }).timeout(50000);
     it("checks sent email", async () => {
       //Email input
+      {/*
       const emailInput = "#i0116";
-      await page.type(emailInput, process.env.USER_EMAIL);
+      await page.type(emailInput, "andras.pasztor2022@outlook.hu");
       await page.click('input[type="submit"]');
 
       //Password input
       await page.waitForSelector("#i0118");
-      await page.type("#i0118", process.env.USER_PASSWORD);
+      await page.type("#i0118", "QaYwSx789");
       await page.click('input[type="submit"]');
       await page.waitForSelector("#idSIButton9");
       await page.click("#idSIButton9");
-
+    */}
+      
       //Check the sent emails
-      const listOfSentEmails = 'div[title="Elküldött elemek"]';
       await page.waitForSelector(listOfSentEmails);
       await page.click(listOfSentEmails);
 
@@ -82,17 +84,20 @@ describe("setup", () => {
       await page.waitForSelector(oneEmail);
     }).timeout(50000);
     it("deletes sent email", async () => {
+
+      {/*
       //Email input
       const emailInput = "#i0116";
-      await page.type(emailInput, process.env.USER_EMAIL);
+      await page.type(emailInput, "andras.pasztor2022@outlook.hu");
       await page.click('input[type="submit"]');
 
       //Password input
       await page.waitForSelector("#i0118");
-      await page.type("#i0118", process.env.USER_PASSWORD);
+      await page.type("#i0118", "QaYwSx789");
       await page.click('input[type="submit"]');
       await page.waitForSelector("#idSIButton9");
       await page.click("#idSIButton9");
+    */}
 
       //Delete all emails
       await page.waitForSelector(listOfSentEmails);
@@ -108,6 +113,6 @@ describe("setup", () => {
   });
 
   after(async () => {
-    await browser.close();
+    //await browser.close();
   });
 });
