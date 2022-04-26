@@ -9,15 +9,15 @@ describe("setup", () => {
   before(async () => {
     browser = await puppeteer.launch({ args: ["--window-size=1920,1080"], headless: false, slowMo: 100 });
     page = await browser.newPage();
-
+    
     await page.setViewport({
       width: 1920,
       height: 1080,
       deviceScaleFactor: 1,
     });
-
+    
     //Go to page
-    await page.goto("https://outlook.live.com/owa/?nlp=1", { waitUntil: "networkidle0" });
+    await page.goto("https://outlook.live.com/owa/?nlp=1", { waitUntil: "networkidle2" });
   });
   describe("email handling", () => {
     it("writes an email and sends it", async () => {
