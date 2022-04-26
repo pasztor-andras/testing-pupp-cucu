@@ -2,14 +2,13 @@ const puppeteer = require("puppeteer");
 require("dotenv").config({ path: "../.env" });
 const assert = require("assert");
 
-
 let browser;
 let page;
 
 describe("setup", () => {
   before(async () => {
-    await puppeteer.launch({ args: ["--window-size=1920,1080"], headless: false, slowMo: 100 });
-    await browser.newPage();
+    browser = await puppeteer.launch({ args: ["--window-size=1920,1080"], headless: false, slowMo: 100 });
+    page = await browser.newPage();
 
     await page.setViewport({
       width: 1920,
@@ -17,13 +16,24 @@ describe("setup", () => {
       deviceScaleFactor: 1,
     });
 
-    await Promise.all([page.coverage.startJSCoverage(), page.coverage.startCSSCoverage()]);
-
     //Go to page
     await page.goto("https://outlook.live.com/owa/?nlp=1", { waitUntil: "networkidle0" });
   });
   describe("email handling", () => {
     it("writes an email and sends it", async () => {
+      //Email input
+      const emailInput = "#i0116";
+      await page.type(emailInput, process.env.USER_EMAIL);
+      await page.click('input[type="submit"]');
+
+      //Password input
+      await page.waitForSelector("#i0118");
+      await page.type("#i0118", process.env.USER_PASSWORD);
+      await page.click('input[type="submit"]');
+      await page.waitForSelector("#idSIButton9");
+      await page.click("#idSIButton9");
+
+      //Create email and send it
       const newMessageButton = ".root-168";
       await page.waitForSelector(newMessageButton);
       await page.click(newMessageButton);
@@ -42,10 +52,10 @@ describe("setup", () => {
       const sendButton = '[title="Küldés (Ctrl+Enter)"]';
       await page.click(sendButton);
 
-      const addresse = process.env.RECIPIENT_EMAIL
-      const expected = await page.$eval(addresseeInput, val => val.get)
-    
-      assert.equal(addresse, expected)
+      const recipient = process.env.RECIPIENT_EMAIL;
+      const expected = await page.$eval(addresseeInput, (val) => val.get);
+
+      assert.equal(recipient, expected);
     }).timeout(50000);
     it("checks sent email", async () => {
       //Email input
@@ -98,8 +108,6 @@ describe("setup", () => {
   });
 
   after(async () => {
-    await page.coverage.stopJSCoverage();
-    await page.coverage.stopCSSCoverage();
     await browser.close();
   });
 });
