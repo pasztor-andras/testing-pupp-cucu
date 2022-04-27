@@ -61,9 +61,9 @@ describe("setup", () => {
       await page.click(messageInput);
       await page.type(messageInput, "Teszt üzenet");
       const sendButton = '[title="Küldés (Ctrl+Enter)"]';
-      // await page.click(sendButton);
+      let sendingEvent = await page.click(sendButton);
      
-      if(await page.click(sendButton)) {
+      if(sendingEvent) {
         actual = true
       } else {
         actual = false
