@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js"
+    "cucumber test": "cucumber-js",
+    "puppeteer test": "mocha --timeout 5000"
   },
   "keywords": [],
   "author": "",
