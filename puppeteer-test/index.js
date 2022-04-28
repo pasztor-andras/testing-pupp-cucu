@@ -1,5 +1,4 @@
 const puppeteer = require("puppeteer");
-require("dotenv").config({ path: "../.env" });
 const assert = require("assert");
 
 let browser;
