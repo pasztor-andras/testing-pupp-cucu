@@ -37,4 +37,8 @@ Puppeteer: 04.22.: 11:00-18:00 Login
 Puppeteer: 04.23.: 13:00-14:00 New message
 Puppeteer: 04.23.: 15:00-16:00 Send message
 Puppeteer: 04.24.: 11:00-13:00 Delete message
+Puppeteer: 04.25.: 09:00-12:00 & 13:00-19:00 Install cucumber
+Puppeteer: 04.26.: 09:00-12:00 & 13:00-20:00 Fixing the puppeteer and working on cucumber
+Puppeteer: 04.27.: 11:00-13:00 & 14:00-22:00 Add asserts to puppeteer and cucumber features
+Puppeteer: 04.28.: 08:00-12:00 & 13:00-14:00 Cucumber steps
 

@@ -9,8 +9,7 @@ Scenario: send an email with Outlook
 Scenario: open a sent email with Outlook
     Given I am logged in at outlook.hu
     When I click the list of sent emails
-    When click an email
-   Then I can see the body of the email
+    Then I can select an email
 
 Scenario: delete sent email in Outlook
     Given I am logged in at outlook.hu

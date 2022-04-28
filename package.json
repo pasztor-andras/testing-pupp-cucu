@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "cucumber test": "cucumber-js",
-    "puppeteer test": "mocha --timeout 5000"
+    "ptest": "mocha --timeout 5000 puppeteer-test/index.js",
+    "ctest": "cucumber-js cucumber-test/features/handling_emails_with_outlook.feature"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +14,8 @@
     "@cucumber/cucumber": "^8.1.2",
     "dotenv": "^16.0.0",
     "puppeteer": "^13.6.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6"
   }
 }

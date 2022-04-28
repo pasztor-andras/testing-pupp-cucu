@@ -37,7 +37,6 @@ describe("setup", () => {
       await page.click("#idSIButton9");
 
       //Create email and send it
-      //const newMessageButton = ".root-168";
       const newMessageButton = "#id__8";
       await page.waitForSelector(newMessageButton);
       await page.click(newMessageButton);
@@ -50,20 +49,12 @@ describe("setup", () => {
       const subjectInput = 'input[type="text"]';
       await page.type(subjectInput, "Teszt tárgy");
       
-      {/*
-      const subjectText = await page.$('input[type="text"]');
-      console.log(typeof subjectText);
-      const subject = await page.evaluate((val) => val.textContent, subjectText);
-      console.log(subject);
-    */}
-      
       const messageInput = ".h04ZZTiPR1gPpezg0OQA";
       await page.click(messageInput);
       await page.type(messageInput, "Teszt üzenet");
       const sendButton = '[title="Küldés (Ctrl+Enter)"]';
-      let sendingEvent = await page.click(sendButton);
-     
-      if(sendingEvent) {
+      if(sendButton) {
+        await page.click(sendButton);
         actual = true
       } else {
         actual = false
@@ -99,7 +90,6 @@ describe("setup", () => {
       await page.click(listOfSentEmails);
       
       let deleteAllEmailsButton = await page.click('button[name="Mappa ürítése"]');
-      
       if(!deleteAllEmailsButton) {
         await page.waitForSelector('button[id="ok-1"]');
         await page.click('button[id="ok-1"]');
@@ -108,7 +98,6 @@ describe("setup", () => {
       } else {
         actual = false
       }
-     
       await page.goto("https://outlook.live.com/mail/0");
       await page.waitForTimeout(1000);
 
